@@ -10,3 +10,15 @@ services:
       - /tmp/krb-conf/krb5.conf:/etc/krb5.conf
       - /tmp/smb-data:/var/lib/samba
       - /tmp/krb-data:/var/lib/krb5kdc
+    ports:
+      - "22:22"
+      - "53:53"
+      - "389:389"
+      - "88:88"
+      - "135:135"
+      - "139:139"
+      - "138:138"
+      - "445:445"
+      - "464:464"
+      - "3268:3268"
+      - "3269:3269"
