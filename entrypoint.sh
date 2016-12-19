@@ -41,7 +41,6 @@ appSetup () {
     # Export kerberos keytab for use with sssd
     if [ "${OMIT_EXPORT_KEY_TAB}" != "true" ]; then
         samba-tool domain exportkeytab /etc/krb5.keytab --principal ${HOSTNAME}\$
-        cp /etc/krb5.keytab $KRBKEYTAP_CONF_BACKUP
     fi
 
     touch "${SETUP_LOCK_FILE}"
