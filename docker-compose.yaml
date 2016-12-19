@@ -1,0 +1,12 @@
+version: '2'
+services:
+  samba:
+    image: tkaefer/alpine-samba-ad-container
+    environment:
+      - SAMBA_DOMAIN=TEST
+      - SAMBA_REALM=TEST.MYDOMAIN.COM
+    volumes:
+      - /tmp/smb-conf:/etc/samba
+      - /tmp/krb-conf/krb5.conf:/etc/krb5.conf
+      - /tmp/smb-data:/var/lib/samba
+      - /tmp/krb-data:/var/lib/krb5kdc

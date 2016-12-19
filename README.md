@@ -50,4 +50,7 @@ For details how to store data in directories, containers etc. please check the D
 
 #### Docker compose
 
-next up.
+Get the `docker-compose.yaml` [file from the github repo](https://github.com/tkaefer/alpine-samba-ad-container/blob/master/docker-compose.yaml).
+Copy it to an appropriate directory, do a `touch /tmp/krb-conf/krb5.conf` and run `docker-compose up -d` within that directory.
+
+Watch the logs via `docker-compose logs -f`.
