@@ -14,12 +14,8 @@ fi
 appSetup () {
     echo "Initializing samba database..."
 
-    # Generate passwords or re-use them from the environment
-    ROOT_PASSWORD=${ROOT_PASSWORD:-$(pwgen -cny 10 1)}
     SAMBA_ADMIN_PASSWORD=${SAMBA_ADMIN_PASSWORD:-$(pwgen -cny 10 1)}
     export KERBEROS_PASSWORD=${KERBEROS_PASSWORD:-$(pwgen -cny 10 1)}
-    echo "root:$ROOT_PASSWORD" | chpasswd
-    echo Root password: $ROOT_PASSWORD
     echo Samba administrator password: $SAMBA_ADMIN_PASSWORD
     echo Kerberos KDC database master key: $KERBEROS_PASSWORD
 
