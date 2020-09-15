@@ -31,10 +31,11 @@ appSetup () {
       --dns-backend=BIND9_DLZ \
       --adminpass=$SAMBA_ADMIN_PASSWORD \
       $SAMBA_HOST_IP
-    cp /var/lib/samba/private/krb5.conf /etc/krb5.conf
+    cat /var/lib/samba/private/krb5.conf > /etc/krb5.conf
     if [ "${LDAP_ALLOW_INSECURE,,}" == "true" ]; then
-	     sed -i "/\[global\]/a \\\t\# enable unencrypted passwords\nldap server require strong auth = no" /etc/samba/smb.conf
-	  fi
+	     sed -i '/\[global\]/a # enable unencrypted passwords \
+         ldap server require strong auth = no' /etc/samba/smb.conf
+	fi
     # Create Kerberos database
     expect kdb5_util_create.expect
 
