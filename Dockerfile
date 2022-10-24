@@ -1,5 +1,5 @@
 FROM alpine:3.15
-MAINTAINER Patricio Diaz padiazg@gmail.com
+MAINTAINER Tobias Kaefer tobias+dckrsmb@tkaefer.de
 
 ENV TERM=xterm-color
 RUN apk --update add \
