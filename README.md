@@ -54,3 +54,34 @@ Get the `docker-compose.yaml` [file from the github repo](https://github.com/tka
 Copy it to an appropriate directory, do a `touch /tmp/krb-conf/krb5.conf` and run `docker-compose up -d` within that directory.
 
 Watch the logs via `docker-compose logs -f`.
+
+## notes
+Create clean volumes
+```bash
+if [ -d $HOME/tmp ]; then echo "Removing tmp dir"; rm -rf $HOME/tmp; fi; \
+echo "Creating tmp dir" \
+&& mkdir -p $HOME/tmp/krb-conf \
+&& mkdir $HOME/tmp/krb-data \
+&& mkdir $HOME/tmp/smb-conf \
+&& touch $HOME/tmp/krb-conf/krb5.conf \
+&& docker volume rm samba-data \
+&& docker volume create samba-data
+```
+
+Run an instance
+```bash
+docker volume create samba-data
+
+docker run -it --rm --cap-add SYS_ADMIN \
+-e SAMBA_ADMIN_PASSWORD=...secr3t... \
+-e SAMBA_DOMAIN=local \
+-e SAMBA_REALM=local.patodiaz.io \
+-e LDAP_ALLOW_INSECURE=true \
+--mount type=bind,source=$HOME/tmp/krb-conf/krb5.conf,target=/etc/krb5.conf \
+--mount type=bind,source=$HOME/tmp/krb-data,target=/var/lib/krb5kdc \
+--mount type=bind,source=$HOME/tmp/smb-conf,target=/etc/samba \
+--mount type=volume,source=samba-data,target=/var/lib/samba \
+-p 389:389 \
+--name smb4ad \
+padiazg/samba4dc
+```
